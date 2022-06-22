@@ -61,7 +61,11 @@ void close_input_buffer(InputBuffer* input_buffer){
 MetaCommandResult do_meta_command(InputBuffer* input_buffer){
     if(strcmp(input_buffer->buffer, ".exit") == 0){
 	exit(EXIT_SUCCESS);
-    }else{
+    }
+    if(strcmp(input_buffer->buffer, ".clear") == 0){
+	system("clear");
+    }
+    else{
 	return META_COMMAND_UNRECOGNIZED_COMMAND;
     }
 }
@@ -100,7 +104,7 @@ int main(int argc, char* argv[]){
 	    if(input_buffer->buffer[0] == '.'){
 		switch(do_meta_command(input_buffer)){
 		    case (META_COMMAND_SUCCESS):
-			continue; // Goes to the next block
+			continue;
 		    case (META_COMMAND_UNRECOGNIZED_COMMAND):
 			printf("Unrecognized command '%s'\n", input_buffer->buffer);
 			continue;
